@@ -57,6 +57,8 @@ export const EventSchema: z.ZodType<Event, z.ZodTypeDef> = z.lazy(() =>
     gifticons: z.array(makePropertiesOptional(GifticonSchema).optional()).optional(),
     participants: z.array(ParticipantSchema.optional()).optional(),
     thumbnails: z.array(imageSchema.optional()).optional(),
+    repetition: z.number(),
+    blocks: z.array(z.any().optional().nullable()),
   })
 );
 

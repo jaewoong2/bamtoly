@@ -54,9 +54,7 @@ class EventService extends BaseService {
       next: { tags: ['event'] },
     });
 
-    const parsedData = EventSchema.optional().parse(result.data);
-
-    return { ...result, data: parsedData };
+    return { ...result };
   }
 
   async getAllEvents(page: number, options?: RequestInit, params?: GetAllEventsQuery) {

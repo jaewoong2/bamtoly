@@ -38,15 +38,17 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
   return (
     <>
       <html lang='ko' suppressHydrationWarning>
-        <head />
-        <body className={cn('min-h-screen w-full bg-background antialiased', Freesentation.className)}>
+        <head>
+          <link rel='icon' href='/icon.png' type='image/png' />
+        </head>
+        <body className={cn('min-h-screen w-full bg-muted/50 antialiased', Freesentation.className)}>
           <Providers>
             <ReactQueryProviders>
               <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
                 <div className='relative flex min-h-screen flex-col'>
                   {modal}
                   <SiteHeader />
-                  <div className='flex-1 bg-zinc-50 dark:bg-zinc-800'>{children}</div>
+                  <div className='flex-1 dark:bg-zinc-800'>{children}</div>
                   <Toaster />
                 </div>
                 <TailwindIndicator />

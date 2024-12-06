@@ -1,5 +1,5 @@
 import { useAtomValue } from 'jotai';
-import { LoaderCircle } from 'lucide-react';
+import { LoaderCircle, LoaderIcon } from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect, useMemo, useState } from 'react';
 
@@ -31,7 +31,7 @@ const EventApplyCTAButton = ({ className, ...props }: ButtonProps & React.RefAtt
 
   const ButtonMessage = useMemo(() => {
     if (showSpinner) {
-      return <LoaderCircle className='animate-spin' />;
+      return <LoaderIcon className='animate-spin' />;
     }
 
     if (data?.data?.message) {

@@ -16,9 +16,10 @@ const AnimatedSteps = ({ onChangeIndex, labels = DEFAULT_LABELS }: Props) => {
   const [steps, setSteps] = useState<number[]>();
 
   const onChangeChcked = (index: number) => async (checked: boolean) => {
-    if (!onChangeIndex) return;
-    onChangeIndex(index);
     if (index + 1 >= labels.length) return;
+    if (onChangeIndex) {
+      onChangeIndex(index);
+    }
     if (checked && index === currentIndex) {
       await sleep(500);
       setCurrentIndex((prev) => prev + 1);

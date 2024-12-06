@@ -5,7 +5,6 @@ import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import Link from 'next/link';
 
-import { useDeleteEvent } from '@/apis/services/event/useEventService';
 import { Event } from '@/atoms/types';
 import DeleteDialogButton from '@/components/blocks/DeleteButton';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -47,7 +46,10 @@ export const columns: ColumnDef<Event>[] = [
       const eventName = row.getValue('eventName') as string;
 
       return (
-        <Link className='font-medium' href={`/user/events/${decodeURIComponent(eventName)}`}>
+        <Link
+          className='flex items-start gap-1 font-semibold text-blue-600 hover:underline'
+          href={`/user/events/${decodeURIComponent(eventName)}`}
+        >
           {eventName}
         </Link>
       );

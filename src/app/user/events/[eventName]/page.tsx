@@ -39,14 +39,15 @@ export default async function EventDetailPage({ params }: NextPageProps<{ eventN
         <DataTable
           header={
             <div className='flex gap-2'>
-              <Button
+              <Link
+                href={'#'}
                 onClick={onClickcreateLose}
-                className={buttonVariants({ className: 'text-sm', size: 'sm', variant: 'secondary' })}
+                className={buttonVariants({ className: 'text-sm', size: 'sm', variant: 'outline' })}
               >
                 꽝 추가하기
-              </Button>
+              </Link>
               <Link
-                className={buttonVariants({ className: 'text-sm', size: 'sm', variant: 'secondary' })}
+                className={buttonVariants({ className: 'text-sm', size: 'sm', variant: 'outline' })}
                 href={`/gifticon/create?eventId=${event.data.id}`}
               >
                 기프티콘 추가하기

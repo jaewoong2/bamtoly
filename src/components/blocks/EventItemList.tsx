@@ -60,6 +60,11 @@ const EventItemList = ({ query }: Props) => {
 
   return (
     <div className='flex flex-col gap-4'>
+      {events?.length === 0 && (
+        <div className='flex items-center justify-center py-10 text-sm text-muted-foreground'>
+          등록된 이벤트가 없어요
+        </div>
+      )}
       {events?.map((event) => (
         <EventItem
           onClickItem={() => handleSelectEvent(event)}
@@ -74,14 +79,20 @@ const EventItemList = ({ query }: Props) => {
           footer={selectedEvent?.id === event.id && <EventApplyCTAButton className='w-fit' />}
         />
       ))}
-      <div className='flex w-full justify-end gap-2'>
-        <Button size={'sm'} onClick={onClickPrevPage} disabled={currentPage === 1}>
-          <ArrowLeft />
-        </Button>
-        <Button size={'sm'} onClick={onClickNextPage} disabled={!data?.pages[currentPage - 1]?.data.meta?.hasNextPage}>
-          <ArrowRight />
-        </Button>
-      </div>
+      {events && events?.length > 0 && (
+        <div className='flex w-full justify-end gap-2'>
+          <Button size={'sm'} onClick={onClickPrevPage} disabled={currentPage === 1}>
+            <ArrowLeft />
+          </Button>
+          <Button
+            size={'sm'}
+            onClick={onClickNextPage}
+            disabled={!data?.pages[currentPage - 1]?.data.meta?.hasNextPage}
+          >
+            <ArrowRight />
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

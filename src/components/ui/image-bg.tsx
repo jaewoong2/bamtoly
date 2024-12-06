@@ -1,3 +1,5 @@
+'use client';
+
 import { FastAverageColor } from 'fast-average-color';
 import Image, { ImageProps } from 'next/image';
 import Link from 'next/link';
@@ -7,10 +9,12 @@ interface ImageWithBackgroundProps extends Omit<ImageProps, 'ref'> {
   containerClassName?: string;
   as?: 'link' | 'simple';
   title?: string;
+  background?: boolean;
 }
 
 const ImageWithBackground: React.FC<ImageWithBackgroundProps> = ({
   containerClassName,
+  background,
   title,
   as = 'link',
   ...props
@@ -20,6 +24,7 @@ const ImageWithBackground: React.FC<ImageWithBackgroundProps> = ({
   const [textColor, setTextColor] = useState<string>('');
 
   useEffect(() => {
+    if (!background) return;
     const fac = new FastAverageColor();
 
     const analyzeColor = async () => {
@@ -43,7 +48,7 @@ const ImageWithBackground: React.FC<ImageWithBackgroundProps> = ({
     return () => {
       imageRef.current?.removeEventListener('load', analyzeColor);
     };
-  }, [props.src]);
+  }, [props.src, background]);
 
   const content = (
     <div className={containerClassName} style={{ backgroundColor, color: textColor }}>

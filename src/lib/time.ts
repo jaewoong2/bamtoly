@@ -20,6 +20,11 @@ export const getRelativeTime = (date: string | number | Date): string => {
 export const getYYYYMMDD = (date: string | number | Date = new Date()): string => {
   return dayjs(new Date(date)).format('YYYY-MM-DD');
 };
+
+export const getFullDate = (date: string | number | Date = new Date()): string => {
+  return dayjs(new Date(date)).format('YYYY-MM-DD HH:mm:ss');
+};
+
 export const getKoreanYYYYMMDD = (date: string | number | Date): string => {
   const formattedDate = dayjs(date).format('YYYY년 MM월 DD일');
   return formattedDate;

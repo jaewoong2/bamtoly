@@ -58,11 +58,11 @@ const GifticonCreate = () => {
 
   const { data: gifticon } = useGetGifticon({ gifticonId: Number(gifticonId) }, { enabled: !!gifticonId });
 
-  const { mutate: create } = useCreateGifticon({
+  const { mutate: create, isPending: createPending } = useCreateGifticon({
     onSuccess: handleSuccess,
   });
 
-  const { mutate: update } = useUpdateGifticon({
+  const { mutate: update, isPending: updatePending } = useUpdateGifticon({
     onSuccess: handleSuccess,
   });
 
@@ -70,6 +70,7 @@ const GifticonCreate = () => {
     const { imageSrc, message, category, title, description } = form.getValues();
 
     if (Number(gifticonId) > 0 && Number(eventId) > 0) {
+      if (updatePending) return;
       update(
         {
           gifticonId: Number(gifticonId),
@@ -88,6 +89,7 @@ const GifticonCreate = () => {
         }
       );
     } else {
+      if (createPending) return;
       create({
         eventId: Number(eventId),
         imageUrl: imageSrc[0],
@@ -166,7 +168,11 @@ const GifticonCreate = () => {
                 삭제하기
               </DeleteDialogButton>
             )}
-            <Button onClick={() => customRevalidateTag('event')} className='mb-6 w-full'>
+            <Button
+              disabled={gifticonId ? updatePending : createPending}
+              onClick={() => customRevalidateTag('event')}
+              className='mb-6 w-full'
+            >
               {gifticonId ? '수정하기' : '추가하기'}
             </Button>
           </div>

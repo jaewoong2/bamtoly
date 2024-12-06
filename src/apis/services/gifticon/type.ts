@@ -37,6 +37,16 @@ export type GetGifticonRequest = {
   name?: Gifticon['name'];
 };
 
+export type GetGifticonAllRequest = {
+  page?: number;
+  take?: number;
+  name?: Gifticon['name'];
+  gifticonId?: Gifticon['id'];
+  eventId?: number;
+  userId?: User['id'];
+  claimedBy?: User['id'];
+};
+
 export type UpdateGifticonRequest = Partial<CreateGifticonParmas> & {
   gifticonId: Gifticon['id'];
   eventId: Event['id'];

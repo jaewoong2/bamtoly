@@ -1,6 +1,6 @@
 'use client';
 
-import { Loader2Icon } from 'lucide-react';
+import { Loader2Icon, LoaderIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
@@ -43,7 +43,7 @@ const RedirectWithToast = ({
     <div className='flex min-h-[200px] items-center justify-center'>
       <div className='text-center'>
         <div className='flex w-full items-center justify-center'>
-          <Loader2Icon className='animate-spin' />
+          <LoaderIcon className='animate-spin' />
         </div>
         <button onClick={() => router.push(redirectUrl)} className='text-sm text-blue-500 hover:underline'>
           수동으로 이동하기

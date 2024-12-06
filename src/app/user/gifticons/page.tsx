@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import eventService from '@/apis/services/event/eventService';
+import gifticonService from '@/apis/services/gifticon/gifticonService';
 import userService from '@/apis/services/user/userService';
 import AuthComponent from '@/components/blocks/AuthComponent';
 import { buttonVariants } from '@/components/ui/button';
@@ -10,7 +10,7 @@ import { DataTable } from './components/data-table';
 
 const EventDetailPage = async () => {
   const user = await userService.getMe();
-  const event = await eventService.getAllEvents(1, {}, { userName: user.data?.userName, take: 100 });
+  const gifticons = await gifticonService.findAll({ page: 1, claimedBy: user?.data?.id, take: 100 });
 
   if (!user.data?.id) {
     return <AuthComponent />;
@@ -20,22 +20,9 @@ const EventDetailPage = async () => {
     <div className='container mx-auto py-10'>
       <div className='flex items-center gap-2 text-lg font-bold'>
         <div className='h-4 w-4 rounded-md bg-green-400' />
-        {user.data?.userName}님의 이벤트
+        당첨된 기프티콘
       </div>
-      {event.data.data && (
-        <DataTable
-          header={
-            <Link
-              className={buttonVariants({ className: 'text-sm', size: 'sm', variant: 'outline' })}
-              href={'/event/create'}
-            >
-              이벤트 만들기
-            </Link>
-          }
-          columns={columns}
-          data={event.data.data}
-        />
-      )}
+      {gifticons.data?.data && <DataTable columns={columns} data={gifticons.data.data} />}
     </div>
   );
 };

@@ -10,6 +10,7 @@ import { Event, Gifticon, Image as ImageEntitiy } from '@/atoms/types';
 import DeleteDialogButton from '@/components/blocks/DeleteButton';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import ImageWithBackground from '@/components/ui/image-bg';
 import { getYYYYMMDD } from '@/lib/time';
 
 export const columns: ColumnDef<(Partial<Gifticon> & { eventId?: number }) | undefined>[] = [
@@ -99,14 +100,12 @@ export const columns: ColumnDef<(Partial<Gifticon> & { eventId?: number }) | und
 
       return (
         <div className='relative h-6 w-6'>
-          <Link href={image?.imageUrl} target='_blank'>
-            <Image
-              className='font-medium'
-              src={image?.imageUrl ? image?.imageUrl : '/ramram.png'}
-              alt='기프티콘 이미지'
-              fill
-            />
-          </Link>
+          <ImageWithBackground
+            className='font-medium'
+            src={image?.imageUrl ? image?.imageUrl : '/ramram.png'}
+            alt='기프티콘 이미지'
+            fill
+          />
         </div>
       );
     },

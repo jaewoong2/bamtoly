@@ -155,7 +155,7 @@ export function useCreateEvent(
 
       toast({
         title: `이벤트가 생성 되었습니다 🎉`,
-        description: <Link href={`user/events/${vars.eventName}`}>이벤트 설정 하러가기</Link>,
+        description: <Link href={`/user/events/${vars.eventName}`}>이벤트 설정 하러가기</Link>,
       });
     },
     onError(error, vars, context) {

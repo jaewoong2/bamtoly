@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import React from 'react';
 
 import eventService from '@/apis/services/event/eventService';
@@ -23,7 +22,9 @@ const EventPage = async ({ params }: NextPageProps<Props>) => {
     return <RedirectWithToast redirectUrl='/' toastMessage={status.data?.message} />;
   }
 
-  return event.data?.id ? <ApplyEventPage eventId={event.data?.id} eventName={eventName} /> : null;
+  return event.data?.id ? (
+    <ApplyEventPage blocks={event.data.blocks} eventId={event.data?.id} eventName={eventName} />
+  ) : null;
 };
 
 export default EventPage;

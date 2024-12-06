@@ -1,16 +1,25 @@
-import { UseMutationOptions, UseQueryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  UseMutationOptions,
+  UseQueryOptions,
+  useMutation,
+  useQuery,
+  useQueryClient,
+  useSuspenseInfiniteQuery,
+} from '@tanstack/react-query';
 
 import Link from 'next/link';
 
+import { Gifticon } from '@/atoms/types';
 import { useToast } from '@/hooks/use-toast';
 import { customRevalidateTag } from '@/lib/serverActions';
-import { DefaultResponse, FcFsError } from '@/lib/type';
+import { DefaultResponse, FcFsError, UseInfiniteOptions } from '@/lib/type';
 
 import { DeleteEvnetRequest, DeleteEvnetResponse } from '../event/type';
 import queryOptions from './queries';
 import {
   CreateGifticonParmas,
   CreateGifticonResponse,
+  GetGifticonAllRequest,
   GetGifticonRequest,
   GetGifticonResponse,
   PostClaimGifticonRequset,
@@ -133,5 +142,15 @@ export function useDeleteGifticon(
         title: `기프티콘을 삭제 하였습니다`,
       });
     },
+  });
+}
+
+export function useInfiniteGetAllGifticons({
+  initialPageParam,
+  params,
+}: UseInfiniteOptions<GetGifticonResponse[], GetGifticonAllRequest>) {
+  return useSuspenseInfiniteQuery({
+    ...queryOptions.findAll(params),
+    initialPageParam: initialPageParam ?? { page: 1 },
   });
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { GiftIcon, LogOutIcon, PartyPopperIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
@@ -8,6 +9,7 @@ import { useUserGetMe } from '@/apis/services/user/useUserService';
 import { User } from '@/atoms/types';
 import { DefaultResponse } from '@/lib/type';
 
+import { NavUser } from './blocks/NavUser';
 import { ThemeToggle } from './theme-toggle';
 import { buttonVariants } from './ui/button';
 
@@ -35,18 +37,51 @@ const SideNav = ({ user: user_ }: Props) => {
         </Link>
       )}
       {user?.data?.id && (
-        <Link href={`/logout?redirectUrl=${currentPath}`}>
-          <div
-            className={buttonVariants({
-              size: 'icon',
-              variant: 'ghost',
-              className: 'w-fit px-1',
-            })}
-          >
-            <div className='flex items-center justify-center gap-1'>로그아웃</div>
-            <span className='sr-only'>로그아웃</span>
-          </div>
-        </Link>
+        <NavUser
+          menuGroups={[
+            {
+              items: [
+                {
+                  icon: <PartyPopperIcon />,
+                  item: (
+                    <Link className='h-full w-full' href={`/user/events?redirectUrl=${currentPath}`}>
+                      내 이벤트
+                    </Link>
+                  ),
+                },
+                {
+                  icon: <GiftIcon />,
+                  item: (
+                    <Link className='h-full w-full' href={'/user/gifticons'}>
+                      받은 선물
+                    </Link>
+                  ),
+                },
+                {
+                  icon: <LogOutIcon />,
+                  item: (
+                    <Link className='h-full w-full' href={'/logout'}>
+                      로그아웃
+                    </Link>
+                  ),
+                },
+              ],
+            },
+          ]}
+          user={{ avatar: user.data.avatar, email: user.data.email, name: user.data.userName }}
+        />
+        // <Lxink href={`/logout?redirectUrl=${currentPath}`}>
+        //   <div
+        //     className={buttonVariants({
+        //       size: 'icon',
+        //       variant: 'ghost',
+        //       className: 'w-fit px-1',
+        //     })}
+        //   >
+        //     <div className='flex items-center justify-center gap-1'>로그아웃</div>
+        //     <span className='sr-only'>로그아웃</span>
+        //   </div>
+        // </Link>
       )}
       <ThemeToggle />
     </nav>

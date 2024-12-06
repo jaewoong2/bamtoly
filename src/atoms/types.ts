@@ -29,6 +29,7 @@ export interface Event {
   gifticons?: (Gifticon | undefined)[];
   thumbnails?: (Image | undefined)[];
   repetition: number;
+  blocks: Block[];
 }
 
 export enum GifticonCategory {
@@ -58,3 +59,34 @@ export type Participant = {
   participatedAt: string;
   isApply: boolean;
 };
+export interface Block<T extends BlockType = BlockType> {
+  id?: string;
+  type: T;
+  content: ContentType<T>;
+  children?: Block[];
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export type ContentType<T extends BlockType> = {
+  texts: string[];
+  time?: T extends 'cta-button' ? number : null;
+};
+
+export type BlockType =
+  | 'paragraph'
+  | 'heading_1'
+  | 'heading_2'
+  | 'heading_3'
+  | 'bulleted_list'
+  | 'numbered_list'
+  | 'to_do'
+  | 'toggle'
+  | 'code'
+  | 'image'
+  | 'quote'
+  | 'divider'
+  | 'table'
+  | 'callout'
+  | 'auto-checkbox'
+  | 'cta-button';

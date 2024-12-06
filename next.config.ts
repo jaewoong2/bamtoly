@@ -6,11 +6,16 @@ const nextConfig: NextConfig = {
   rewrites: async () => [
     {
       source: '/api/:path*',
-      destination: `http://localhost:3001/api/:path*`,
+      destination:
+        process.env.NODE_ENV === 'development'
+          ? `http://localhost:3001/api/:path*`
+          : 'https://api.bamtoly.com/api/:path*',
     },
   ],
   output: 'standalone',
-  images: { remotePatterns: [{ hostname: 'd3t7exr31xs1l7.cloudfront.net' }] },
+  images: {
+    remotePatterns: [{ hostname: 'd3t7exr31xs1l7.cloudfront.net' }, { hostname: 'images.bamtoly.com' }],
+  },
   reactStrictMode: true,
 };
 
