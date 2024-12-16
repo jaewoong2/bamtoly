@@ -13,7 +13,7 @@ function withAuth<P extends object>(
     isCreator?: boolean;
   }
 ) {
-  return (props: P) => {
+  const Component = (props: P) => {
     const { back, push } = useRouter();
     const { data: user } = useUserGetMe();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -47,6 +47,8 @@ function withAuth<P extends object>(
 
     return <WrappedComponent {...props} user={user} />;
   };
+
+  return Component;
 }
 
 export default withAuth;

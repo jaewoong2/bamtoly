@@ -5,6 +5,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { boolean } from 'zod';
 
 import { Event, Gifticon, Image as ImageEntitiy } from '@/atoms/types';
 import DeleteDialogButton from '@/components/blocks/DeleteButton';
@@ -52,7 +53,7 @@ export const columns: ColumnDef<(Partial<Gifticon> & { eventId?: number }) | und
   },
   {
     accessorKey: 'name',
-    header: () => <div className=''>기프이콘 이름</div>,
+    header: () => <div className=''>선물</div>,
     cell: ({ row, getValue }) => {
       const value = row.getValue('name') as string;
 
@@ -64,15 +65,28 @@ export const columns: ColumnDef<(Partial<Gifticon> & { eventId?: number }) | und
     header: ({ column }) => {
       return (
         <Button className='p-0' variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          기프티콘 설명
+          선물 설명
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
+    accessorKey: 'claimedBy',
+    header: '선물 당첨자',
+    cell: ({ row }) => {
+      const claimedBy = row.getValue('claimedBy') as Gifticon['claimedBy'];
+
+      if (!claimedBy) {
+        return <div className='font-medium'>없음</div>;
+      }
+
+      return <div className='font-medium'>{claimedBy.email ? claimedBy.email : '없음'}</div>;
+    },
+  },
+  {
     accessorKey: 'claimedAt',
-    header: '기프티콘 제공 날짜',
+    header: '선물 제공 날짜',
     cell: ({ row }) => {
       const claimedAt = row.getValue('claimedAt') as string;
 
@@ -93,7 +107,7 @@ export const columns: ColumnDef<(Partial<Gifticon> & { eventId?: number }) | und
     },
   },
   {
-    header: '기프티콘 이미지',
+    header: '선물 이미지',
     accessorKey: 'image',
     cell: ({ row }) => {
       const image = row.getValue('image') as ImageEntitiy;
@@ -101,10 +115,14 @@ export const columns: ColumnDef<(Partial<Gifticon> & { eventId?: number }) | und
       return (
         <div className='relative h-6 w-6'>
           <ImageWithBackground
+            containerClassName='relative w-6 h-6'
             className='font-medium'
-            src={image?.imageUrl ? image?.imageUrl : '/ramram.png'}
-            alt='기프티콘 이미지'
+            src={image?.imageUrl ? image?.imageUrl : process.env.NEXT_PUBLIC_DEFAULT_IMAGE!}
+            alt='선물 이미지'
             fill
+            sizes='6'
+            // width={24}
+            // height={24}
           />
         </div>
       );
@@ -115,13 +133,15 @@ export const columns: ColumnDef<(Partial<Gifticon> & { eventId?: number }) | und
     cell: ({ row, column }) => {
       const id = row.getValue('id');
       const eventId = row.getValue('eventId') as Event;
+      const claimedAt = row.getValue('claimedAt') as string;
 
       return (
         <div className='flex gap-4'>
           <Link
-            href={`/gifticon/create?gifticonId=${id}&eventId=${eventId}`}
+            aria-readonly={claimedAt ? true : false}
+            href={claimedAt ? `#` : `/gifticon/create?gifticonId=${id}&eventId=${eventId}`}
             className={buttonVariants({
-              className: 'border shadow-none',
+              className: 'border shadow-none aria-readonly:cursor-default aria-readonly:opacity-50',
               size: 'sm',
               variant: 'secondary',
             })}
@@ -129,6 +149,7 @@ export const columns: ColumnDef<(Partial<Gifticon> & { eventId?: number }) | und
             수정
           </Link>
           <DeleteDialogButton
+            disabled={claimedAt ? true : false}
             className='border shadow-none'
             size={'sm'}
             type='button'

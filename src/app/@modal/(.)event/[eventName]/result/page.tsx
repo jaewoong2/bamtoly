@@ -75,7 +75,7 @@ const ResultPage = () => {
           <ImageWithBackground
             title={data?.data.image?.name ?? '기프티콘 당첨 이미지'}
             containerClassName='h-full relative'
-            src={data?.data.image?.imageUrl ?? '/ramram.png'}
+            src={data?.data.image?.imageUrl ?? process.env.NEXT_PUBLIC_DEFAULT_IMAGE!}
             alt={data?.data.image?.name ?? '기프티콘 당첨 이미지'}
             fill
             className='h-full max-h-full w-auto object-contain'

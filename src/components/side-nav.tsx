@@ -48,19 +48,21 @@ const SideNav = ({ user: user_ }: Props) => {
                       내 이벤트
                     </Link>
                   ),
+                  show: user.data.provider !== 'email',
                 },
                 {
                   icon: <GiftIcon />,
                   item: (
-                    <Link className='h-full w-full' href={'/user/gifticons'}>
+                    <Link className='h-full w-full' href={`/user/gifticons?redirectUrl=${currentPath}`}>
                       받은 선물
                     </Link>
                   ),
+                  show: user.data.provider !== 'email',
                 },
                 {
                   icon: <LogOutIcon />,
                   item: (
-                    <Link className='h-full w-full' href={'/logout'}>
+                    <Link className='h-full w-full' href={'/logout'} prefetch={false}>
                       로그아웃
                     </Link>
                   ),
@@ -70,18 +72,6 @@ const SideNav = ({ user: user_ }: Props) => {
           ]}
           user={{ avatar: user.data.avatar, email: user.data.email, name: user.data.userName }}
         />
-        // <Lxink href={`/logout?redirectUrl=${currentPath}`}>
-        //   <div
-        //     className={buttonVariants({
-        //       size: 'icon',
-        //       variant: 'ghost',
-        //       className: 'w-fit px-1',
-        //     })}
-        //   >
-        //     <div className='flex items-center justify-center gap-1'>로그아웃</div>
-        //     <span className='sr-only'>로그아웃</span>
-        //   </div>
-        // </Link>
       )}
       <ThemeToggle />
     </nav>

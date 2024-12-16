@@ -18,7 +18,7 @@ import {
 interface MenuItem {
   icon?: React.ReactNode;
   item?: React.ReactNode;
-  onClick?: () => void;
+  show?: boolean;
 }
 
 // Interface for menu groups
@@ -45,8 +45,13 @@ export function NavUser({ menuGroups, user }: NavUserProps) {
       <DropdownMenuTrigger>
         <div className='flex'>
           <Avatar className='h-8 w-8 rounded-lg'>
-            <AvatarImage src={user.avatar} alt={user.name} />
-            <AvatarFallback className='rounded-lg'>CN</AvatarFallback>
+            <AvatarImage
+              src={user.avatar ? user.avatar : `${process.env.NEXT_PUBLIC_IMAGE_URL}/images/user.svg`}
+              alt={user.name}
+            />
+            <AvatarFallback className='rounded-lg'>
+              <AvatarImage src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/images/user.svg`} alt={user.name} />
+            </AvatarFallback>
           </Avatar>
         </div>
       </DropdownMenuTrigger>
@@ -58,8 +63,13 @@ export function NavUser({ menuGroups, user }: NavUserProps) {
         <DropdownMenuLabel className='p-1 font-normal'>
           <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
             <Avatar className='h-8 w-8 rounded-lg'>
-              <AvatarImage src={user.avatar} alt={user.name} />
-              <AvatarFallback className='rounded-lg'>{user.name}</AvatarFallback>
+              <AvatarImage
+                src={user.avatar ? user.avatar : `${process.env.NEXT_PUBLIC_IMAGE_URL}/images/user.svg`}
+                alt={user.name}
+              />
+              <AvatarFallback className='rounded-lg'>
+                <AvatarImage src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/images/user.svg`} alt={user.name} />
+              </AvatarFallback>
             </Avatar>
             <div className='grid flex-1 text-left text-sm leading-tight'>
               <span className='truncate font-semibold'>{user.name}</span>
@@ -71,7 +81,8 @@ export function NavUser({ menuGroups, user }: NavUserProps) {
           <React.Fragment key={groupIndex}>
             <DropdownMenuSeparator className='bg-neutral-300' />
             <DropdownMenuGroup className='p-1'>
-              {group.items.map(({ icon, item }, itemIndex) => {
+              {group.items.map(({ icon, item, show = true }, itemIndex) => {
+                if (!show) return false;
                 return (
                   <DropdownMenuItem key={itemIndex}>
                     {icon}

@@ -66,7 +66,7 @@ const ApplyEventPage = ({ eventId, eventName, blocks = DEFAULT_BLOCKS }: Props) 
           height={40}
           alt='무우우'
           className={cn('relative size-auto animate-wiggle-more animate-infinite', 'absolute -right-2 -top-6')}
-          src={'/ramram.png'}
+          src={process.env.NEXT_PUBLIC_DEFAULT_IMAGE ?? '/ramram.png'}
         />
         <CardContent className='flex h-full w-full flex-col justify-between'>
           <div className='flex h-full w-full flex-col justify-between pt-10'>

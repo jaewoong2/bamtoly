@@ -45,14 +45,12 @@ const ImageWithBackground: React.FC<ImageWithBackgroundProps> = ({
       imageRef.current?.addEventListener('load', analyzeColor);
     }
 
-    return () => {
-      imageRef.current?.removeEventListener('load', analyzeColor);
-    };
+    return imageRef.current?.removeEventListener('load', analyzeColor);
   }, [props.src, background]);
 
   const content = (
     <div className={containerClassName} style={{ backgroundColor, color: textColor }}>
-      <Image {...props} ref={imageRef as any} />
+      <Image {...props} ref={imageRef as any} alt={props.alt} />
     </div>
   );
 

@@ -13,7 +13,7 @@ import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessa
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 
-import { FormSchema } from '../create/page';
+import { FormSchema } from './EventCreatePage';
 
 type Props = {
   form: UseFormReturn<z.infer<typeof FormSchema>>;

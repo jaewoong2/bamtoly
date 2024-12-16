@@ -29,7 +29,7 @@ const SelectInput = <TFieldValues extends FieldValues>({
         <FormItem>
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
               <SelectTrigger>
                 <SelectValue placeholder={placeholder || 'Select an option'} />
               </SelectTrigger>

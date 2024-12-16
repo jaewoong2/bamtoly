@@ -29,7 +29,7 @@ const FormSchema = z.object({
   email: z.string().optional(),
 });
 
-const backendurl = process.env.NEXT_PUBLIC_BACKEND_URL;
+const backendurl = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://api.bamtoly.com';
 
 type Props = {
   isOpen?: boolean;
@@ -125,6 +125,8 @@ const LoginModal = ({ isOpen = true, onOpenChange, isApply, title, description }
             </Link>
             <Link
               href={`${backendurl}/api/auth/kakao/login`}
+              target='_blank'
+              rel='noreferrer'
               className={cn(
                 'flex w-full items-center justify-center gap-4 rounded-full border bg-yellow-300 px-3 py-2 dark:bg-black'
               )}

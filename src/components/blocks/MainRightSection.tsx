@@ -9,9 +9,7 @@ const MainRightSection = () => {
   return (
     <div className='sticky top-[64px] flex h-full w-full flex-col gap-2'>
       <div className='h-7 max-md:hidden' />
-      <div className='max-md:hidden'>
-        <EventApplyCTACard />
-      </div>
+      <div className='max-md:hidden'>{/* <EventApplyCTACard /> */}</div>
       <Card className='relative h-[360px] overflow-hidden border-none bg-transparent shadow-none max-md:h-[240px]'>
         <Link href={'https://naver.me/5wWu4h6f'} target='_blank' referrerPolicy='no-referrer'>
           <ImageWithBackground

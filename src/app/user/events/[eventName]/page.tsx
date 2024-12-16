@@ -3,14 +3,14 @@ import Link from 'next/link';
 
 import eventService from '@/apis/services/event/eventService';
 import gifticonService from '@/apis/services/gifticon/gifticonService';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { NextPageProps } from '@/lib/type';
+import { buttonVariants } from '@/components/ui/button';
+import { PageProps } from '@/lib/type';
 
 import EventDetailBreadCrumb from '../../../../components/atoms/CommonBreadCrumb';
 import { DataTable } from '../components/data-table';
 import { columns } from './columns';
 
-export default async function EventDetailPage({ params }: NextPageProps<{ eventName: string }>) {
+export default async function EventDetailPage({ params }: PageProps) {
   const { eventName } = await params;
   const event = await eventService.getEvent({ eventName: eventName });
 

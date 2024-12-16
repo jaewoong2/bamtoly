@@ -41,7 +41,7 @@ export const columns: ColumnDef<Gifticon>[] = [
   },
   {
     accessorKey: 'name',
-    header: () => <div className=''>기프티콘</div>,
+    header: () => <div className=''>선물</div>,
     cell: ({ row }) => {
       const name = row.getValue('name') as string;
 
@@ -73,13 +73,20 @@ export const columns: ColumnDef<Gifticon>[] = [
       const name = row.getValue('name') as string;
       const image = row.getValue('image') as Gifticon['image'];
 
-      return <ImageWithBackground src={image?.imageUrl ?? ''} alt={name} width={24} height={24} />;
+      return (
+        <ImageWithBackground
+          src={image?.imageUrl ?? process.env.NEXT_PUBLIC_DEFAULT_IMAGE!}
+          alt={name}
+          width={24}
+          height={24}
+        />
+      );
     },
   },
   {
     accessorKey: 'claimedAt',
     header: ({ column }) => {
-      return <div>당첨날짜</div>;
+      return <div>받은 날짜</div>;
     },
     cell: ({ row }) => {
       const claimedAt = row.getValue('claimedAt') as string;

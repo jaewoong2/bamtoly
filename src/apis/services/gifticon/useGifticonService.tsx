@@ -7,9 +7,6 @@ import {
   useSuspenseInfiniteQuery,
 } from '@tanstack/react-query';
 
-import Link from 'next/link';
-
-import { Gifticon } from '@/atoms/types';
 import { useToast } from '@/hooks/use-toast';
 import { customRevalidateTag } from '@/lib/serverActions';
 import { DefaultResponse, FcFsError, UseInfiniteOptions } from '@/lib/type';
@@ -69,7 +66,7 @@ export function useCreateGifticon(
       }
 
       toast({
-        title: `기프티콘이 생성 되었습니다 🎉`,
+        title: `선물이 생성 되었습니다 🎉`,
       });
     },
   });
@@ -99,7 +96,7 @@ export function useUpdateGifticon(
       }
 
       toast({
-        title: `기프티콘을 수정 하였습니다 🎉`,
+        title: `선물을 수정 하였습니다 🎉`,
       });
     },
   });
@@ -139,7 +136,7 @@ export function useDeleteGifticon(
       }
 
       toast({
-        title: `기프티콘을 삭제 하였습니다`,
+        title: `선물을 삭제 하였습니다`,
       });
     },
   });

@@ -18,10 +18,6 @@ interface FileDropzoneProps {
 const FileDropzone = ({ form, label, disabled, error }: FileDropzoneProps) => {
   // 'imageSrc' 필드의 존재 여부를 확인합니다.
   const formValues = form.getValues();
-  if (!('imageSrc' in formValues)) {
-    // 'imageSrc' 필드가 없으면 컴포넌트를 렌더링하지 않습니다.
-    return null;
-  }
 
   const imageSrc = (form.watch('imageSrc') as string[]) ?? [];
 
@@ -46,6 +42,11 @@ const FileDropzone = ({ form, label, disabled, error }: FileDropzoneProps) => {
     onDrop,
     accept: { 'image/*': [] },
   });
+
+  if (!('imageSrc' in formValues)) {
+    // 'imageSrc' 필드가 없으면 컴포넌트를 렌더링하지 않습니다.
+    return null;
+  }
 
   return (
     <div className='relative'>

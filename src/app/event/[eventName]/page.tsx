@@ -3,15 +3,11 @@ import React from 'react';
 import eventService from '@/apis/services/event/eventService';
 import userService from '@/apis/services/user/userService';
 import RedirectWithToast from '@/components/blocks/RedirectWithToast';
-import { NextPageProps } from '@/lib/type';
+import { PageProps } from '@/lib/type';
 
 import ApplyEventPage from '../components/ApplyEventPage';
 
-type Props = {
-  eventName: string;
-};
-
-const EventPage = async ({ params }: NextPageProps<Props>) => {
+const EventPage = async ({ params }: PageProps) => {
   const { eventName } = await params;
   const event = await eventService.getEventParticipate({ eventName: decodeURIComponent(eventName) });
 

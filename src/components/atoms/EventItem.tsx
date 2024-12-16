@@ -2,6 +2,7 @@ import { Gift } from 'lucide-react';
 import React from 'react';
 
 import { Event } from '@/atoms/types';
+import { getKoreanYYYYMMDD } from '@/lib/time';
 import { cn } from '@/lib/utils';
 
 import ImageCarousel from '../blocks/ImageCarousel';
@@ -42,7 +43,7 @@ const EventItem = ({
               <ImageWithBackground
                 title={`이벤트 [${title}] 이미지 입니다.`}
                 fill
-                src={image?.imageUrl ?? '/ramram.png'}
+                src={image?.imageUrl ?? `${process.env.NEXT_PUBLIC_DEFAULT_IMAGE}`}
                 alt={title?.toString() ?? 'event thumbnail'}
                 containerClassName={cn(
                   'w-full h-auto relative aspect-square',
@@ -72,6 +73,11 @@ const EventItem = ({
                   <span className='text-sm'>당첨 확률: {Math.round((gifticonsLength / totalGifticons) * 100)}%</span>
                 ) : (
                   <span className='text-sm'>기프티콘이 등록 되지 않았습니다.</span>
+                )}
+              </div>
+              <div>
+                {endDate && (
+                  <span className='text-xs font-semibold text-primary'>{getKoreanYYYYMMDD(endDate)} 까지</span>
                 )}
               </div>
             </div>

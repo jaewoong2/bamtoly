@@ -5,7 +5,8 @@ export interface ApiRequestConfig extends RequestInit {
   stringfy?: boolean;
 }
 
-export const API_BASE_URL = 'http://localhost:3001'; // 여기에 실제 API 기본 URL을 넣으세요
+export const API_BASE_URL =
+  process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://api.bamtoly.com'; //  여기에 실제 API 기본 URL을 넣으세요
 
 export const http = async <T>(
   endpoint: string,

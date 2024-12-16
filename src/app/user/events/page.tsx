@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 import eventService from '@/apis/services/event/eventService';
 import userService from '@/apis/services/user/userService';
@@ -11,6 +12,10 @@ import { DataTable } from './components/data-table';
 const EventDetailPage = async () => {
   const user = await userService.getMe();
   const event = await eventService.getAllEvents(1, {}, { userName: user.data?.userName, take: 100 });
+
+  if (user.data?.provider === 'email') {
+    redirect('/');
+  }
 
   if (!user.data?.id) {
     return <AuthComponent />;

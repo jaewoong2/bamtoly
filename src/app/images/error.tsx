@@ -10,7 +10,7 @@ const Error = ({ error }: any) => {
       <div className='flex h-full w-full max-w-md flex-col gap-4 rounded-lg p-8 text-center'>
         <div className='relative mx-auto aspect-square h-auto w-64'>
           <Image
-            src='/ramram.png' // Make sure to add your error image in the public folder
+            src={process.env.NEXT_PUBLIC_DEFAULT_IMAGE!} // Make sure to add your error image in the public folder
             alt='Error Illustration'
             fill
             priority

@@ -51,12 +51,12 @@ const GifticonCreate = () => {
     },
   });
 
+  const { data: gifticon, refetch } = useGetGifticon({ gifticonId: Number(gifticonId) }, { enabled: !!gifticonId });
+
   const handleSuccess = useCallback(async () => {
     form.reset();
-    back();
-  }, [form, back]);
-
-  const { data: gifticon } = useGetGifticon({ gifticonId: Number(gifticonId) }, { enabled: !!gifticonId });
+    refetch();
+  }, [form]);
 
   const { mutate: create, isPending: createPending } = useCreateGifticon({
     onSuccess: handleSuccess,
@@ -71,23 +71,15 @@ const GifticonCreate = () => {
 
     if (Number(gifticonId) > 0 && Number(eventId) > 0) {
       if (updatePending) return;
-      update(
-        {
-          gifticonId: Number(gifticonId),
-          eventId: Number(eventId),
-          imageUrl: imageSrc[0],
-          message,
-          category,
-          name: title,
-          description,
-        },
-        {
-          async onSettled() {
-            await customRevalidateTag('event');
-            handleSuccess();
-          },
-        }
-      );
+      update({
+        gifticonId: Number(gifticonId),
+        eventId: Number(eventId),
+        imageUrl: imageSrc[0],
+        message: message,
+        category: category,
+        name: title,
+        description: description,
+      });
     } else {
       if (createPending) return;
       create({
@@ -105,8 +97,8 @@ const GifticonCreate = () => {
     if (gifticon) {
       form.reset({
         category: gifticon.data?.category,
-        description: gifticon.data?.category,
-        imageSrc: [gifticon.data?.image?.imageUrl ?? '/ramram.png'],
+        description: gifticon.data?.description,
+        imageSrc: [gifticon.data?.image?.imageUrl ?? process.env.NEXT_PUBLIC_DEFAULT_IMAGE],
         message: `${gifticon.data?.message}`,
         title: gifticon.data?.name,
       });
